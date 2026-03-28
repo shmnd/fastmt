@@ -12,6 +12,7 @@ class CreateTask(BaseModel):
 class TaskResponse(BaseModel):
     id: int
     title: str
+    description: str
     status: str
     project_id: int
     assigned_to: int

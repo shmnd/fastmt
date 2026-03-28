@@ -29,7 +29,7 @@ def update_project(project_id: int, project: ProjectCreate, db: Session = Depend
     if not db_project:
         raise HTTPException(status_code=404, detail="Project not found ")
     
-    for key, value in Project.dict().items():
+    for key, value in project.dict().items():
         setattr(db_project, key, value)
 
     db.commit()

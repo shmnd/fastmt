@@ -8,6 +8,7 @@ class User(Base):
     name = Column(String)
     email = Column(String, unique=True, index=True)
     role = Column(String) #admin/dev
+    password = Column(String)
 
     
 
