@@ -3,17 +3,27 @@ from sqlalchemy.orm import Session
 from app.models.project import Project
 from app.db.database import get_db
 from app.schemas.project import ProjectCreate, ProjectResponse
+from app.core.security import get_current_user
 
 router = APIRouter(prefix="/projects", tags=["Projects"])
 
-@router.post("/", response_model=ProjectCreate)
-def create_project(project: ProjectCreate, db: Session = Depends(get_db)):
-    db_project = Project(**project.dict())
+@router.post("/", response_model=ProjectResponse)
+def create_project(
+    project: ProjectCreate, 
+    db: Session = Depends(get_db),
+    user = Depends(get_current_user)
+):
+    db_project = Project(
+    name =project.name,
+    description = project.description,
+    created_by = user.id
+    )
+
     db.add(db_project)
     db.commit()
     db.refresh(db_project)
-    return db_project
 
+    return db_project
 
 @router.get("/", response_model=list[ProjectResponse])
 def list_projects( db: Session = Depends(get_db)):
