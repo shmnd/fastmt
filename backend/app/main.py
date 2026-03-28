@@ -1,8 +1,8 @@
 from fastapi import FastAPI
+from app.api import project,user,task
 
 app = FastAPI()
 
-@app.get("/")
-
-def root():
-    return({"message":"running"})
+app.include_router(user.router)
+app.include_router(project.router)
+app.include_router(task.router)
