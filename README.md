@@ -24,7 +24,7 @@ The system supports authentication, task assignment, status tracking, filtering,
 
 ### Frontend
 
-* Next.js
+Not implemented frontend 
 
 ---
 

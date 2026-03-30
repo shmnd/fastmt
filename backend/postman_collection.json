@@ -216,5 +216,71 @@
             "key": "token",
             "value": "YOUR_JWT_TOKEN_HERE"
         }
-    ]
+    ],
+
+    {
+        "name": "Assign Task",
+        "request": {
+            "method": "PUT",
+            "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}" },
+                { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+                "mode": "raw",
+                "raw": "{\n  \"assigned_to\": 1\n}"
+            },
+            "url": {
+                "raw": "http://localhost:8000/api/tasks/1/assign",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8000",
+                "path": ["api", "tasks", "1", "assign"]
+            }
+        }
+    },
+
+    {
+        "name": "Update Task Status",
+        "request": {
+            "method": "PUT",
+            "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}" },
+                { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+                "mode": "raw",
+                "raw": "{\n  \"status\": \"completed\"\n}"
+            },
+            "url": {
+                "raw": "http://localhost:8000/api/tasks/1/status",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8000",
+                "path": ["api", "tasks", "1", "status"]
+            }
+        }
+    },
+
+    {
+        "name": "Get Tasks Paginated",
+        "request": {
+            "method": "GET",
+            "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+                "raw": "http://localhost:8000/api/tasks/?project_id=1&skip=0&limit=10",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8000",
+                "path": ["api", "tasks", ""],
+                "query": [
+                    { "key": "project_id", "value": "1" },
+                    { "key": "skip", "value": "0", "description": "Number of items to skip" },
+                    { "key": "limit", "value": "10", "description": "Number of items to return" }
+                ]
+            }
+        }
+    }
 }
