@@ -26,13 +26,13 @@ def create_project(
     return db_project
 
 @router.get("/", response_model=list[ProjectResponse])
-def list_projects( db: Session = Depends(get_db)):
+def list_projects( db: Session = Depends(get_db), user = Depends(get_current_user)):
     return db.query(Project).all()
 
 
 
 @router.put("/{project_id}")
-def update_project(project_id: int, project: ProjectCreate, db: Session = Depends(get_db)):
+def update_project(project_id: int, project: ProjectCreate, db: Session = Depends(get_db),user = Depends(get_current_user)):
 
     db_project = db.query(Project).get(project_id)
 
@@ -47,7 +47,7 @@ def update_project(project_id: int, project: ProjectCreate, db: Session = Depend
 
 
 @router.delete("/{project_id}") 
-def delete_projects(project_id: int, db: Session = Depends(get_db)):
+def delete_projects(project_id: int, db: Session = Depends(get_db),user = Depends(get_current_user)):
     db_project = db.query(Project).get(project_id)
 
     if not db_project:
